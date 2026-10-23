@@ -1,0 +1,5 @@
+{
+  "name": "Elsner P03/3 Modbus Weather Station",
+  "render_readme": true,
+  "homeassistant": "2025.1.0"
+}

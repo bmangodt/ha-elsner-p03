@@ -1,0 +1,168 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "Connect your Elsner P03/3 weather station",
+        "description": "How is the weather station connected to Home Assistant?",
+        "menu_options": {
+          "tcp": "Modbus TCP (via an Ethernet gateway)",
+          "rtu": "Modbus RTU (RS-485 adapter on this machine)"
+        }
+      },
+      "tcp": {
+        "title": "Modbus TCP",
+        "description": "The station is tested as soon as you press Submit. If it cannot be reached, your values stay filled in so you can correct them and try again.",
+        "data": {
+          "name": "Name",
+          "host": "Host",
+          "port": "TCP port",
+          "rtu_over_tcp": "RTU over TCP (transparent gateway)",
+          "slave": "Modbus address",
+          "has_gps": "GPS model (P03/3-Modbus-GPS)",
+          "area_id": "Area"
+        },
+        "data_description": {
+          "name": "Name of the device in Home Assistant.",
+          "host": "IP address or host name of the Modbus TCP gateway the station is wired to.",
+          "port": "Usually 502.",
+          "rtu_over_tcp": "Enable for a transparent RS-485 to Ethernet converter that forwards raw RTU frames. Leave off for a real Modbus TCP gateway.",
+          "slave": "Set with the address DIP switches on the station. Factory default (all switches off) is 1.",
+          "has_gps": "Adds sun position, coordinates and GPS time.",
+          "area_id": "Room or zone to put the weather station in. You can change this later on the device page."
+        }
+      },
+      "rtu": {
+        "title": "Modbus RTU",
+        "description": "The station is tested as soon as you press Submit. If it cannot be reached, your values stay filled in so you can correct them and try again.",
+        "data": {
+          "name": "Name",
+          "serial_port": "Serial port",
+          "baudrate": "Baud rate",
+          "parity": "Parity",
+          "stopbits": "Stop bits",
+          "slave": "Modbus address",
+          "has_gps": "GPS model (P03/3-Modbus-GPS)",
+          "area_id": "Area"
+        },
+        "data_description": {
+          "name": "Name of the device in Home Assistant.",
+          "serial_port": "RS-485 adapter. Pick a detected port or type a path such as /dev/ttyUSB0.",
+          "baudrate": "Factory default is 19200.",
+          "parity": "Factory default is even (8E1).",
+          "stopbits": "Factory default is 1.",
+          "slave": "Set with the address DIP switches on the station. Factory default (all switches off) is 1.",
+          "has_gps": "Adds sun position, coordinates and GPS time.",
+          "area_id": "Room or zone to put the weather station in. You can change this later on the device page."
+        }
+      },
+      "reconfigure": {
+        "title": "Change connection settings",
+        "description": "The new settings are tested before they are saved.",
+        "data": {
+          "host": "Host",
+          "port": "TCP port",
+          "rtu_over_tcp": "RTU over TCP (transparent gateway)",
+          "slave": "Modbus address",
+          "has_gps": "GPS model (P03/3-Modbus-GPS)",
+          "serial_port": "Serial port",
+          "baudrate": "Baud rate",
+          "parity": "Parity",
+          "stopbits": "Stop bits"
+        },
+        "data_description": {
+          "host": "IP address or host name of the Modbus TCP gateway the station is wired to.",
+          "port": "Usually 502.",
+          "rtu_over_tcp": "Enable for a transparent RS-485 to Ethernet converter that forwards raw RTU frames. Leave off for a real Modbus TCP gateway.",
+          "slave": "Set with the address DIP switches on the station. Factory default (all switches off) is 1.",
+          "has_gps": "Adds sun position, coordinates and GPS time.",
+          "serial_port": "RS-485 adapter. Pick a detected port or type a path such as /dev/ttyUSB0.",
+          "baudrate": "Factory default is 19200.",
+          "parity": "Factory default is even (8E1).",
+          "stopbits": "Factory default is 1."
+        }
+      }
+    },
+    "error": {
+      "cannot_connect": "Could not open the connection. Check the host and port, or that the serial port exists and is not used by another integration. Details: {error_detail}",
+      "no_response": "The connection opened but the station did not answer correctly. Check the Modbus address, baud rate, parity and the A/B wiring. Details: {error_detail}",
+      "unknown": "Unexpected error: {error_detail}"
+    },
+    "abort": {
+      "already_configured": "This weather station is already set up.",
+      "reconfigure_successful": "The connection settings were updated."
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "Weather station options",
+        "data": {
+          "scan_interval": "Poll interval"
+        },
+        "data_description": {
+          "scan_interval": "How often the station is read, in seconds."
+        }
+      }
+    }
+  },
+  "selector": {
+    "parity": {
+      "options": {
+        "E": "Even",
+        "O": "Odd",
+        "N": "None"
+      }
+    }
+  },
+  "entity": {
+    "sensor": {
+      "temperature": {
+        "name": "Temperature"
+      },
+      "wind_speed": {
+        "name": "Wind speed"
+      },
+      "illuminance": {
+        "name": "Illuminance"
+      },
+      "sun_south": {
+        "name": "Sun south"
+      },
+      "sun_west": {
+        "name": "Sun west"
+      },
+      "sun_east": {
+        "name": "Sun east"
+      },
+      "brightness": {
+        "name": "Twilight brightness"
+      },
+      "status_raw": {
+        "name": "Status register"
+      },
+      "sun_azimuth": {
+        "name": "Sun azimuth"
+      },
+      "sun_elevation": {
+        "name": "Sun elevation"
+      },
+      "utc_time": {
+        "name": "GPS time"
+      },
+      "longitude": {
+        "name": "Longitude"
+      },
+      "latitude": {
+        "name": "Latitude"
+      }
+    },
+    "binary_sensor": {
+      "rain": {
+        "name": "Rain"
+      },
+      "gps_fix": {
+        "name": "GPS time sync"
+      }
+    }
+  }
+}

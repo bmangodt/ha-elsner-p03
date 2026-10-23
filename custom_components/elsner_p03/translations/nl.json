@@ -1,0 +1,168 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "Verbind je Elsner P03/3-weerstation",
+        "description": "Hoe is het weerstation met Home Assistant verbonden?",
+        "menu_options": {
+          "tcp": "Modbus TCP (via een Ethernet-gateway)",
+          "rtu": "Modbus RTU (RS-485-adapter op deze machine)"
+        }
+      },
+      "tcp": {
+        "title": "Modbus TCP",
+        "description": "Het station wordt getest zodra je op Verzenden drukt. Lukt dat niet, dan blijven je waarden ingevuld zodat je ze kan aanpassen en opnieuw proberen.",
+        "data": {
+          "name": "Naam",
+          "host": "Host",
+          "port": "TCP-poort",
+          "rtu_over_tcp": "RTU over TCP (transparante gateway)",
+          "slave": "Modbus-adres",
+          "has_gps": "GPS-model (P03/3-Modbus-GPS)",
+          "area_id": "Ruimte"
+        },
+        "data_description": {
+          "name": "Naam van het apparaat in Home Assistant.",
+          "host": "IP-adres of hostnaam van de Modbus TCP-gateway waarop het station is aangesloten.",
+          "port": "Meestal 502.",
+          "rtu_over_tcp": "Inschakelen voor een transparante RS-485 naar Ethernet-converter die ruwe RTU-frames doorgeeft. Uit laten voor een echte Modbus TCP-gateway.",
+          "slave": "Ingesteld met de adres-DIP-schakelaars op het station. Fabrieksinstelling (alle schakelaars uit) is 1.",
+          "has_gps": "Voegt zonnestand, coördinaten en GPS-tijd toe.",
+          "area_id": "Kamer of zone waarin het weerstation komt. Je kan dit later wijzigen op de apparaatpagina."
+        }
+      },
+      "rtu": {
+        "title": "Modbus RTU",
+        "description": "Het station wordt getest zodra je op Verzenden drukt. Lukt dat niet, dan blijven je waarden ingevuld zodat je ze kan aanpassen en opnieuw proberen.",
+        "data": {
+          "name": "Naam",
+          "serial_port": "Seriële poort",
+          "baudrate": "Baudrate",
+          "parity": "Pariteit",
+          "stopbits": "Stopbits",
+          "slave": "Modbus-adres",
+          "has_gps": "GPS-model (P03/3-Modbus-GPS)",
+          "area_id": "Ruimte"
+        },
+        "data_description": {
+          "name": "Naam van het apparaat in Home Assistant.",
+          "serial_port": "RS-485-adapter. Kies een gevonden poort of typ een pad zoals /dev/ttyUSB0.",
+          "baudrate": "Fabrieksinstelling is 19200.",
+          "parity": "Fabrieksinstelling is even (8E1).",
+          "stopbits": "Fabrieksinstelling is 1.",
+          "slave": "Ingesteld met de adres-DIP-schakelaars op het station. Fabrieksinstelling (alle schakelaars uit) is 1.",
+          "has_gps": "Voegt zonnestand, coördinaten en GPS-tijd toe.",
+          "area_id": "Kamer of zone waarin het weerstation komt. Je kan dit later wijzigen op de apparaatpagina."
+        }
+      },
+      "reconfigure": {
+        "title": "Verbindingsinstellingen wijzigen",
+        "description": "De nieuwe instellingen worden getest voordat ze worden opgeslagen.",
+        "data": {
+          "host": "Host",
+          "port": "TCP-poort",
+          "rtu_over_tcp": "RTU over TCP (transparante gateway)",
+          "slave": "Modbus-adres",
+          "has_gps": "GPS-model (P03/3-Modbus-GPS)",
+          "serial_port": "Seriële poort",
+          "baudrate": "Baudrate",
+          "parity": "Pariteit",
+          "stopbits": "Stopbits"
+        },
+        "data_description": {
+          "host": "IP-adres of hostnaam van de Modbus TCP-gateway waarop het station is aangesloten.",
+          "port": "Meestal 502.",
+          "rtu_over_tcp": "Inschakelen voor een transparante RS-485 naar Ethernet-converter die ruwe RTU-frames doorgeeft. Uit laten voor een echte Modbus TCP-gateway.",
+          "slave": "Ingesteld met de adres-DIP-schakelaars op het station. Fabrieksinstelling (alle schakelaars uit) is 1.",
+          "has_gps": "Voegt zonnestand, coördinaten en GPS-tijd toe.",
+          "serial_port": "RS-485-adapter. Kies een gevonden poort of typ een pad zoals /dev/ttyUSB0.",
+          "baudrate": "Fabrieksinstelling is 19200.",
+          "parity": "Fabrieksinstelling is even (8E1).",
+          "stopbits": "Fabrieksinstelling is 1."
+        }
+      }
+    },
+    "error": {
+      "cannot_connect": "Kon de verbinding niet openen. Controleer host en poort, of dat de seriële poort bestaat en niet door een andere integratie wordt gebruikt. Details: {error_detail}",
+      "no_response": "De verbinding is open, maar het station antwoordt niet correct. Controleer Modbus-adres, baudrate, pariteit en de A/B-bedrading. Details: {error_detail}",
+      "unknown": "Onverwachte fout: {error_detail}"
+    },
+    "abort": {
+      "already_configured": "Dit weerstation is al ingesteld.",
+      "reconfigure_successful": "De verbindingsinstellingen zijn bijgewerkt."
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "Opties weerstation",
+        "data": {
+          "scan_interval": "Uitleesinterval"
+        },
+        "data_description": {
+          "scan_interval": "Hoe vaak het station wordt uitgelezen, in seconden."
+        }
+      }
+    }
+  },
+  "selector": {
+    "parity": {
+      "options": {
+        "E": "Even",
+        "O": "Oneven",
+        "N": "Geen"
+      }
+    }
+  },
+  "entity": {
+    "sensor": {
+      "temperature": {
+        "name": "Temperatuur"
+      },
+      "wind_speed": {
+        "name": "Windsnelheid"
+      },
+      "illuminance": {
+        "name": "Verlichtingssterkte"
+      },
+      "sun_south": {
+        "name": "Zon zuid"
+      },
+      "sun_west": {
+        "name": "Zon west"
+      },
+      "sun_east": {
+        "name": "Zon oost"
+      },
+      "brightness": {
+        "name": "Schemering"
+      },
+      "status_raw": {
+        "name": "Statusregister"
+      },
+      "sun_azimuth": {
+        "name": "Zonne-azimut"
+      },
+      "sun_elevation": {
+        "name": "Zonnehoogte"
+      },
+      "utc_time": {
+        "name": "GPS-tijd"
+      },
+      "longitude": {
+        "name": "Lengtegraad"
+      },
+      "latitude": {
+        "name": "Breedtegraad"
+      }
+    },
+    "binary_sensor": {
+      "rain": {
+        "name": "Regen"
+      },
+      "gps_fix": {
+        "name": "GPS-tijdsynchronisatie"
+      }
+    }
+  }
+}
