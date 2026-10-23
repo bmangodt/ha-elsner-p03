@@ -1,14 +1,14 @@
 {
   "domain": "elsner_p03",
   "name": "Elsner P03/3 Modbus Weather Station",
-  "codeowners": ["@bmangodt"],
+  "codeowners": [],
   "config_flow": true,
   "dependencies": [],
-  "documentation": "https://github.com/bmangodt/ha-elsner-p03",
+  "documentation": "https://github.com/YOUR_GITHUB_USERNAME/ha-elsner-p03",
   "integration_type": "device",
   "iot_class": "local_polling",
-  "issue_tracker": "https://github.com/bmangodt/ha-elsner-p03/issues",
+  "issue_tracker": "https://github.com/YOUR_GITHUB_USERNAME/ha-elsner-p03/issues",
   "loggers": ["pymodbus"],
   "requirements": ["pymodbus>=3.9.0", "pyserial>=3.5"],
-  "version": "1.0.0"
+  "version": "1.0.1"
 }

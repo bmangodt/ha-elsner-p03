@@ -38,9 +38,9 @@ BASIC_REGISTER_COUNT = 7  # temperature .. status (all models)
 GPS_REGISTER_COUNT = 17  # everything (P03/3-Modbus-GPS)
 
 # Byte masks for REG_STATUS. Per the Elsner manual the GPS/RTC flag is the high
-# byte and the rain flag the low byte of register 6. Some integrators report
-# 256 (= high byte) for rain on the standard model. On that model the GPS byte
-# has no meaning, so there any non-zero status value is treated as rain.
+# byte and the rain flag the low byte of register 6. Confirmed on a real
+# station: it reads 256 (high byte set, low byte 0) while dry, so rain must be
+# taken from the low byte only, on every model.
 GPS_FLAG_MASK = 0xFF00
 RAIN_FLAG_MASK = 0x00FF
 
@@ -76,7 +76,7 @@ def parse_registers(registers: Sequence[int], has_gps: bool) -> dict[str, Any]:
             max(sun_lux) if max(sun_lux) > 1000 else registers[REG_BRIGHTNESS]
         ),
         "wind_speed": registers[REG_WIND] / 10,
-        "rain": bool(status & RAIN_FLAG_MASK) if has_gps else bool(status),
+        "rain": bool(status & RAIN_FLAG_MASK),
         "status_raw": status,
     }
 

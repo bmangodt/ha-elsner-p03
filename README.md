@@ -1,7 +1,7 @@
 # Elsner P03/3 Modbus Weather Station for Home Assistant
 
 [![HACS Custom](https://img.shields.io/badge/HACS-Custom-41BDF5.svg)](https://hacs.xyz/docs/faq/custom_repositories)
-[![GitHub release](https://img.shields.io/github/v/release/bmangodt/ha-elsner-p03)](https://github.com/bmangodt/ha-elsner-p03/releases)
+[![GitHub release](https://img.shields.io/github/v/release/YOUR_GITHUB_USERNAME/ha-elsner-p03)](https://github.com/YOUR_GITHUB_USERNAME/ha-elsner-p03/releases)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
 A Home Assistant custom integration for the **Elsner P03/3-Modbus** and **P03/3-Modbus-GPS** weather stations.
@@ -28,12 +28,12 @@ The station itself only speaks Modbus RTU over RS-485. For a network connection 
 
 ### HACS (recommended)
 
-[![Open your Home Assistant instance and open this repository inside HACS.](https://my.home-assistant.io/badges/hacs_repository.svg)](https://my.home-assistant.io/redirect/hacs_repository/?owner=bmangodt&repository=ha-elsner-p03&category=integration)
+[![Open your Home Assistant instance and open this repository inside HACS.](https://my.home-assistant.io/badges/hacs_repository.svg)](https://my.home-assistant.io/redirect/hacs_repository/?owner=YOUR_GITHUB_USERNAME&repository=ha-elsner-p03&category=integration)
 
 Or add it manually:
 
 1. In Home Assistant open **HACS**, then **⋮ → Custom repositories**.
-2. Add `https://github.com/bmangodt/ha-elsner-p03` with category **Integration**.
+2. Add `https://github.com/YOUR_GITHUB_USERNAME/ha-elsner-p03` with category **Integration**.
 3. Search for **Elsner P03/3** in HACS and click **Download**.
 4. **Restart** Home Assistant.
 
@@ -119,9 +119,7 @@ Check the actual entity IDs on your device page; they depend on the name you cho
 
 - All values come from **one** request: Modbus function 04 (Read Input Registers) from address 0, reading 7 registers for the standard model and 17 for the GPS model. This is the "read all" request from Elsner's manual. Always starting at address 0 avoids a known quirk where the station misreads other start addresses.
 - Negative values (temperature, sun elevation, coordinates) are decoded as two's complement.
-- **Rain flag:** Elsner's manual puts the rain flag in the low byte of register 6, but there are reports of rain showing up as 256 (the high byte).
-  - On the standard model, any non-zero value counts as rain, so both layouts work.
-  - On the GPS model, the high byte is the GPS flag, so the manual's layout is used there.
+- **Rain flag:** the rain flag is the low byte of register 6, as in Elsner's manual. The high byte is a separate status flag: a real station reads 256 while dry, so the high byte is ignored for rain.
 
 ## Troubleshooting
 
@@ -132,7 +130,7 @@ Check the actual entity IDs on your device page; they depend on the name you cho
 
 **Other issues:**
 
-- **Rain never turns on:** enable the *Status register* entity, wet the rain sensor, and [open an issue](https://github.com/YOUR_GITHUB_USERNAME/ha-elsner-p03/issues) with the value you see.
+- **Rain shows the wrong state:** enable the *Status register* entity, wet the rain sensor, and [open an issue](https://github.com/YOUR_GITHUB_USERNAME/ha-elsner-p03/issues) with the value you see.
 - **Bus termination:** turn on the termination DIP switch only when the station is at the end of a long RS-485 cable.
 
 ### Debug logging
